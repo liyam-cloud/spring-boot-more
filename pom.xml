@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.liyam</groupId>
+    <artifactId>spring-boot-more</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <description>Demo project for Spring Boot Multi Module</description>
+
+    <!-- 指定整个项目的父项目 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.2-SNAPSHOT</version>
+    </parent>
+
+    <!--模块：这里声明多个子模块 -->
+    <modules>
+        <module>more-main</module>
+        <module>more-login</module>
+        <module>more-test</module>
+    </modules>
+
+    <!--属性变量配置-->
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+
+    <!--加载依赖管理-->
+    <!--注意：如果使用dependencyManagement,只是对版本进行管理，不会直接引入jar  -->
+    <!--是为了在这里配置版本,为了让子模块pom或者本pom的直接dependencies不单独配置版本 -->
+    <!--如果没有版本,会先到这里找版本号,以免版本冲突  -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>2.4.2-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--公共模块加载,非公共模块请一般放在子pom进行加载-->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!--插件-->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.2-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
